@@ -6,6 +6,7 @@ from utils import module_path, starttime, starttime_str
 import utils
 from src.set_logging import log_path, logger
 from pprint import pprint
+import traceback
 
 
 class Craigslist:
@@ -120,6 +121,7 @@ class Craigslist:
                 try:
                     extract_res = self.extract_info(row)
                 except AttributeError:
+                    traceback.print_exc()
                     continue
                 info_list.append(extract_res)
         df = pd.DataFrame(info_list)

@@ -4,6 +4,8 @@ import utils
 from src.set_logging import log_path, logger
 from src.scrapers import Craigslist
 from datetime import datetime
+import os
+import traceback
 
 
 def get_craigslist():
@@ -20,12 +22,13 @@ def get_craigslist():
             craigslist = Craigslist(model, 'vancouver')
             df = craigslist.get_info()
         except AttributeError:
+            traceback.print_exc()
             continue
         df_data = pd.concat([df_data, df])
 
     ## Save scraped data in CSV and Picklefile
-    df_data.to_csv(f'craigslist_{starttime_str.replace(" ", "T")}.csv')
-    df_data.to_pickle(f'craigslist_{starttime_str.replace(" ", "T")}.pickle')
+    df_data.to_csv(os.path.join('data', f'craigslist_{starttime_str.replace(" ", "T")}.csv'))
+    df_data.to_pickle(os.path.join('data', f'craigslist_{starttime_str.replace(" ", "T")}.pickle'))
     logger.info('=' * 65)
     logger.info('Scraper ended at {0}'.format(datetime.fromtimestamp(starttime).strftime('%Y%m%d %H:%M:%S')))
     logger.info('=' * 65)
