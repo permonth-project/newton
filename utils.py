@@ -30,10 +30,13 @@ def get_iphone_models(logger):
                 df = df[~df['model'].squeeze().str.contains("Legend")]
                 all_iphone_models = df['model'].squeeze().values.tolist()
                 all_iphone_models = list(flatten([m.split('/') for m in all_iphone_models]))
+                all_iphone_models = [m if ("iphone" in m.lower()) else f"iPhone {m}" for m in all_iphone_models]
 
                 df_current_model = df[df['support']['ended']['ended'] == 'current']
                 current_iphone_models = df_current_model['model'].squeeze().values.tolist()
                 current_iphone_models = list(flatten([m.split('/') for m in current_iphone_models]))
+                current_iphone_models = [m if ("iphone" in m.lower()) else f"iPhone {m}" for m in current_iphone_models]
+
                 logger.info(f"Done")
                 logger.info(f"All iPhone models: {all_iphone_models}")
                 logger.info(f"Current iPhone models: {current_iphone_models}")

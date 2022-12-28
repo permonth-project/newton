@@ -117,7 +117,10 @@ class Craigslist:
             if page_idx != 0:
                 self.reset_url(page_idx)
             for row in tqdm(self.get_result_row()):
-                extract_res = self.extract_info(row)
+                try:
+                    extract_res = self.extract_info(row)
+                except AttributeError:
+                    continue
                 info_list.append(extract_res)
         df = pd.DataFrame(info_list)
         df.insert(0, '_region', self.REGION)

@@ -16,8 +16,11 @@ def get_craigslist():
     df_data = pd.DataFrame()
     for model in current_iphone_models:
         logger.info(f"Scraping model: {model}")
-        craigslist = Craigslist(model, 'vancouver')
-        df = craigslist.get_info()
+        try:
+            craigslist = Craigslist(model, 'vancouver')
+            df = craigslist.get_info()
+        except AttributeError:
+            continue
         df_data = pd.concat([df_data, df])
 
     ## Save scraped data in CSV and Picklefile
