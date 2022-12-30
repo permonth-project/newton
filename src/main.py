@@ -6,6 +6,7 @@ from src.scrapers import Craigslist
 from datetime import datetime
 import os
 import traceback
+import time
 
 
 def get_craigslist():
@@ -28,6 +29,7 @@ def get_craigslist():
             traceback.print_exc()
             continue
         df_data = pd.concat([df_data, df])
+        time.sleep(15)
 
     ## Save scraped data in CSV and Picklefile
     df_data.to_csv(os.path.join('data', f'craigslist_{starttime_str.replace(" ", "T")}.csv'))
