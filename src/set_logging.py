@@ -6,10 +6,12 @@ from datetime import datetime
 from utils import module_path, starttime
 
 
-"""Set up logging"""
-log_path = os.path.join(module_path, 'whiskyhk.log')
+today = datetime.today().date().strftime('%Y%m%d')
 
-logger = logging.getLogger('hkex-text')
+"""Set up logging"""
+log_path = os.path.join(module_path, f'{today}.log')
+
+logger = logging.getLogger('newton-log')
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter(fmt='%(asctime)s %(levelname)s - %(message)s', datefmt='%Y%m%d %H:%M:%S')
 
