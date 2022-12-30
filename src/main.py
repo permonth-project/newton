@@ -24,6 +24,9 @@ def get_craigslist():
         except AttributeError:
             traceback.print_exc()
             continue
+        except ConnectionResetError:
+            traceback.print_exc()
+            continue
         df_data = pd.concat([df_data, df])
 
     ## Save scraped data in CSV and Picklefile
