@@ -9,7 +9,7 @@ from utils import module_path, starttime
 today = datetime.today().date().strftime('%Y%m%d')
 
 """Set up logging"""
-log_path = os.path.join(module_path, f'{today}.log')
+log_path = os.path.join(module_path, 'log', f'{today}.log')
 
 logger = logging.getLogger('newton-log')
 logger.setLevel(logging.DEBUG)
