@@ -7,6 +7,8 @@ import utils
 from src.set_logging import log_path, logger
 from pprint import pprint
 import traceback
+import time
+import random
 
 
 class Craigslist:
@@ -124,6 +126,7 @@ class Craigslist:
                     traceback.print_exc()
                     continue
                 info_list.append(extract_res)
+                time.sleep(random.uniform(0.1, 1))
         df = pd.DataFrame(info_list)
         df.insert(0, '_region', self.REGION)
         df.insert(0, '_product', self.QUERY)
