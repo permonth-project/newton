@@ -10,6 +10,7 @@ import re
 from datetime import datetime
 import pandas as pd
 import difflib
+import traceback
 
 
 load_dotenv()
@@ -138,6 +139,8 @@ class DatabaseQuery:
 
 
 def insert_listings():
+    logger.info('=' * 65)
+    logger.info(f"Starting data insertion")
     data_list = os.listdir('data')
     file_dates_only = [re.match(r'craigslist_([0-9]*T[0-9]{2}:[0-9]{2}:[0-9]{2}).pickle', f)[1]
                        for f in data_list if f.endswith('.pickle')]
@@ -172,30 +175,37 @@ def insert_listings():
         if len(res) > 0:
             continue
 
-        cur.execute(
-            f"""
-            INSERT INTO listing 
-            VALUES (
-                 DEFAULT, 
-                 {hood_id}, 
-                 {query_id}, 
-                 {product_id}, 
-                '{datetime.today().strftime('%Y%m%dT%H:%M:%S')}', 
-                '{row.result_title}', 
-                '{row.result_date}', 
-                 {row.result_price}, 
-                '{row.result_link.strip()}', 
-                 {row.map_data_accuracy}, 
-                 {row.map_data_longitude}, 
-                 {row.map_data_latitude}, 
-                '{row.main_img_url.strip()}', 
-                '{re.sub(r"'", "", row.posting_body.strip())}', 
-                '{row.user_notices}', 
-                '{row.postingdate}', 
-                '{row.condition.strip()}' 
-            )
-        """)
-        con.commit()
+        try:
+            cur.execute(
+                f"""
+                INSERT INTO listing
+                VALUES (
+                     DEFAULT,
+                     {hood_id},
+                     {query_id},
+                     {product_id},
+                    '{datetime.today().strftime('%Y%m%dT%H:%M:%S')}',
+                    '{row.result_title}',
+                    '{row.result_date}',
+                     {row.result_price},
+                    '{row.result_link.strip()}',
+                     {row.map_data_accuracy},
+                     {row.map_data_longitude},
+                     {row.map_data_latitude},
+                    '{row.main_img_url.strip()}',
+                    '{re.sub(r"'", "", row.posting_body.strip())}',
+                    '{row.user_notices}',
+                    '{row.postingdate}',
+                    '{row.condition.strip()}'
+                )
+            """)
+            con.commit()
+        except Exception as e:
+            logger.error(traceback.print_exc())
+            continue
+        cur.execute(f"SELECT post_id from listing ORDER BY _last_updated DESC")
+        inserted_id = cur.fetchone()[0]
+        logger.info(f"""Successfully inserted listing post_id: {inserted_id}""")
 
 
 class ModelSpecs:
