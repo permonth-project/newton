@@ -9,6 +9,7 @@ import os
 import traceback
 import time
 import gc
+import traceback
 
 
 def get_craigslist():
@@ -46,8 +47,16 @@ def get_craigslist():
 
 
 def main():
-    get_craigslist()
-    db.insert_listings()
+    try:
+        get_craigslist()
+    except:
+        logger.error(traceback.print_exc())
+        pass
+    try:
+        db.insert_listings()
+    except:
+        logger.error(traceback.print_exc())
+        pass
 
 
 if __name__ == "__main__":
