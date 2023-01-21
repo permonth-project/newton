@@ -3,6 +3,7 @@ from utils import module_path, starttime, starttime_str
 import utils
 from src.set_logging import log_path, logger
 from src.scrapers import Craigslist
+from src import db
 from datetime import datetime
 import os
 import traceback
@@ -41,6 +42,7 @@ def get_craigslist():
 
 def main():
     get_craigslist()
+    db.insert_listings()
 
 
 if __name__ == "__main__":
