@@ -8,6 +8,7 @@ from datetime import datetime
 import os
 import traceback
 import time
+import gc
 
 
 def get_craigslist():
@@ -15,10 +16,14 @@ def get_craigslist():
     all_iphone_models, current_iphone_models = utils.get_iphone_models(logger=logger)
     all_iphone_models.reverse()
     current_iphone_models.reverse()
+    csv_fname = f'craigslist_{starttime_str.replace(" ", "T")}.csv'
+    csv_fpath = os.path.join(module_path, 'data', csv_fname)
 
     ## Scrape data from Craigslist
     df_data = pd.DataFrame()
     for model in current_iphone_models:
+        if os.path.exists(csv_fpath):
+            pd.read_csv(csv_fpath)
         logger.info(f"Scraping model: {model}")
         try:
             craigslist = Craigslist(model, 'vancouver')
@@ -32,9 +37,9 @@ def get_craigslist():
         df_data = pd.concat([df_data, df])
         time.sleep(15)
 
-    ## Save scraped data in CSV and Picklefile
-    df_data.to_csv(os.path.join('data', f'craigslist_{starttime_str.replace(" ", "T")}.csv'))
-    df_data.to_pickle(os.path.join('data', f'craigslist_{starttime_str.replace(" ", "T")}.pickle'))
+        ## Save scraped data in CSV and Picklefile
+        df_data.to_csv(csv_fpath)
+        gc.collect()
     logger.info('=' * 65)
     logger.info('Scraper ended at {0}'.format(datetime.fromtimestamp(starttime).strftime('%Y%m%d %H:%M:%S')))
     logger.info('=' * 65)
