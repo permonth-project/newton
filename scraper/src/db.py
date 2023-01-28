@@ -187,23 +187,24 @@ def insert_listings(df_listings):
                     '{row.result_title}',
                     '{row.result_date}',
                      {row.result_price},
-                    '{row.result_link.strip()}',
+                    '{str(row.result_link).strip()}',
                      {row.map_data_accuracy},
                      {row.map_data_longitude},
                      {row.map_data_latitude},
-                    '{row.main_img_url.strip()}',
+                    '{str(row.main_img_url).strip()}',
                     '{re.sub(r"'", "", row.posting_body.strip())}',
                     '{row.user_notices}',
                     '{row.postingdate}',
-                    '{row.condition.strip()}'
+                    '{str(row.condition).strip()}'
                 )
             """)
             con.commit()
         except Exception as e:
             logger.error(traceback.print_exc())
             continue
-        cur.execute(f"SELECT post_id from listing ORDER BY _last_updated DESC")
-        inserted_id = cur.fetchone()[0]
+        # cur.execute(f"SELECT post_id from listing ORDER BY _last_updated DESC")
+        # inserted_id = cur.fetchone()[0]
+        inserted_id = cur.lastrowid
         logger.info(f"""Successfully inserted listing post_id: {inserted_id}""")
 
 
