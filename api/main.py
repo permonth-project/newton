@@ -27,8 +27,8 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 
 @app.get("/get-avg/")
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    avg_prices = crud.get_avg_prices(db, skip=skip, limit=limit)
+def read_users(product_id: int = 0, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    avg_prices = crud.get_avg_prices(product_id, db, skip=skip, limit=limit)
 
     return avg_prices
 
