@@ -5,11 +5,11 @@ import {RiNumber1} from 'react-icons/ri';
 const CTA = () => {
   return (
     <div className='w-full text-black'>
-    <div className='max-w-[1240px] mx-auto  p-16 my-8 rounded-xl bg-red-50'>
+    <div className='max-w-[1240px] mx-auto  px-2 sm:px-16 py-8 sm:py-16 sm:my-8 sm:rounded-xl bg-red-50 '>
       <div className='grid md:grid-cols-4 gap-8'>
         <div className='col-span-2'>
-            <h1 className='md:text-6xl sm:text-4xl text-4xl font-bold py-2 text-[#93123f]'>Future Roadmap</h1>
-            <h1 className='md:text-4xl sm:text-4xl text-3xl font-bold py-8'>We have tones of <span className="bg-[#93123f] text-white px-2 italic">features</span> to be updated in the future</h1>
+            <h1 className='sm:text-4xl text-5xl font-bold py-2 text-[#93123f]'>Future Roadmap</h1>
+            <h1 className='sm:text-4xl text-3xl font-bold py-8'>We have tones of <span className="bg-[#93123f] text-white px-2 italic">features</span> to be updated in the future</h1>
         </div>
 
         

@@ -5,7 +5,7 @@ import logo from '../assets/NEWTON-LOGO.png';
 const Navbar = () => {
 
   return (
-    <div className='flex px-16 lg:px-0 justify-between items-center h-24 max-w-[1240px] mx-auto text-black'>
+    <div className='flex px-2 lg:px-0 justify-between items-center h-24 max-w-[1240px] mx-auto text-black'>
         <img className='w-40' src={logo} alt="/"/>
         <div className='flex items-center'>
         <ul className='hidden lg:flex font-medium'>

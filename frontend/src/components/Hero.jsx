@@ -4,10 +4,10 @@ import Typed from "react-typed";
 
 const Hero = () => {
   return (
-    <div className="max-w-[1240px] py-16 mt-12 md:mx-auto grid lg:grid-cols-5 bg-[#fff2f1] rounded-xl">
+    <div className="max-w-[1240px] py-16 sm:mt-12 md:mx-auto grid lg:grid-cols-5 bg-[#fff2f1] sm:rounded-xl">
       {/* TEXT*/}
       <div className="mb-8 col-span-2   w-full  text-black max-h-[600px] flex flex-cols-2 justify-center">
-        <div className="max-w-[1240px] px-16 w-full mx-auto flex flex-col justify-center">
+        <div className="max-w-[1240px] px-2 sm:px-16 w-full mx-auto flex flex-col justify-center">
           <p className="my-2 text-black font-bold text-center text-sm px-2 py-1 rounded-full w-[180px]  bg-[#d9c9ff]">
             We have price for you
           </p>
@@ -45,7 +45,7 @@ const Hero = () => {
 
       <div className=" col-span-3 flex flex-col justify-center  items-center">
 
-          <img className="w-[90%] p-0 mx-auto" src={Heroimage} alt="/" />
+          <img className="w-fill lg:w-[90%] p-2 sm:p-0 mx-auto" src={Heroimage} alt="/" />
 
       </div>
     </div>
