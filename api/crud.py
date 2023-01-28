@@ -1,11 +1,5 @@
 from sqlalchemy.orm import Session
-#import models
 import pandas as pd
-
-
-def get_prices(db: Session, skip: int = 0, limit: int = 100):
-    # db.execute()
-    return db.query(models.Listing).limit(limit).all()
 
 
 def get_all_prices(db: Session, skip: int = 0, limit: int = 100):
@@ -20,7 +14,6 @@ def get_all_prices(db: Session, skip: int = 0, limit: int = 100):
 
     df = pd.DataFrame(list(res))
     return df.set_index('post_id').to_dict(orient='index')
-
 
 
 def get_avg_prices(db: Session, skip: int = 0, limit: int = 100):

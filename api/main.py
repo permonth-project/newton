@@ -1,19 +1,14 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 import crud
-#import models
-#import schemas
 from database import SessionLocal, engine
 import uvicorn
 import pandas as pd
 
 
-#models.Base.metadata.create_all(bind=engine)
-
 app = FastAPI()
 
 
-# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -22,7 +17,6 @@ def get_db():
         db.close()
 
 
-# @app.get("/all_prices/", response_model=list[schemas.AllPrices])
 @app.get("/get-all/")
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     all_prices = crud.get_all_prices(db, skip=skip, limit=limit)
