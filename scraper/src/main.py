@@ -38,8 +38,11 @@ def get_craigslist():
         df_data = pd.concat([df_data, df])
         time.sleep(15)
 
-        ## Save scraped data in CSV and Picklefile
-        df_data.to_csv(csv_fpath)
+        ## Save scraped data directly to the database
+        db.insert_listings(df_data)
+
+        ## Save scraped data in CSV
+        # df_data.to_csv(csv_fpath)
         gc.collect()
     logger.info('=' * 65)
     logger.info('Scraper ended at {0}'.format(datetime.fromtimestamp(starttime).strftime('%Y%m%d %H:%M:%S')))
@@ -52,11 +55,11 @@ def main():
     except:
         logger.error(traceback.print_exc())
         pass
-    try:
-        db.insert_listings()
-    except:
-        logger.error(traceback.print_exc())
-        pass
+    # try:
+    #     db.insert_listings()
+    # except:
+    #     logger.error(traceback.print_exc())
+    #     pass
 
 
 if __name__ == "__main__":

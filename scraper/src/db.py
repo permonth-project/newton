@@ -138,18 +138,16 @@ class DatabaseQuery:
         return res[0][0]
 
 
-def insert_listings():
+def insert_listings(df_listings):
     logger.info('=' * 65)
     logger.info(f"Starting data insertion")
-    data_list = os.listdir('data')
-    file_dates_only = [re.match(r'craigslist_([0-9]*T[0-9]{2}:[0-9]{2}:[0-9]{2}).pickle', f)[1]
-                       for f in data_list if f.endswith('.pickle')]
-    most_recent_date = max([datetime.strptime(d, '%Y%m%dT%H:%M:%S') for d in file_dates_only]).strftime(
-        '%Y%m%dT%H:%M:%S')
-    most_recent_file = f"craigslist_{most_recent_date}.pickle"
-
+    # data_list = os.listdir('data')
+    # file_dates_only = [re.match(r'craigslist_([0-9]*T[0-9]{2}:[0-9]{2}:[0-9]{2}).pickle', f)[1]
+    #                    for f in data_list if f.endswith('.pickle')]
+    # most_recent_date = max([datetime.strptime(d, '%Y%m%dT%H:%M:%S') for d in file_dates_only]).strftime(
+    #     '%Y%m%dT%H:%M:%S')
+    # most_recent_file = f"craigslist_{most_recent_date}.pickle"
     # df_listings = pd.read_pickle(os.path.join(module_path, most_recent_file))
-    df_listings = pd.read_csv('data/craigslist_20221230T19:02:26.csv')
 
     df_listings = df_listings[[col for col in df_listings.columns if 'Unnamed' not in col]]
     df_listings.loc[:, 'result_price'] = df_listings.loc[:, 'result_price'] \
@@ -169,7 +167,8 @@ def insert_listings():
         cur.execute(f"""SELECT * FROM listing
             WHERE hood_id={hood_id}  
             AND query_id={query_id} 
-            AND product_id={product_id}
+            AND product_id={product_id} 
+            AND result_link='{row.result_link}' 
         """)
         res = cur.fetchall()
         if len(res) > 0:
