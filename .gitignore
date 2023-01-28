@@ -3,6 +3,7 @@
 .env
 *__pycache__*
 *.log
+venv
 
 # dependencies
 /node_modules

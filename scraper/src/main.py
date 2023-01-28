@@ -1,9 +1,9 @@
 import pandas as pd
-from scraper.utils import module_path, starttime, starttime_str
-from scraper import utils
-from scraper.src.set_logging import log_path, logger
-from scraper.src.scrapers import Craigslist
-from scraper.src import db
+from utils import module_path, starttime, starttime_str
+import utils
+from src.set_logging import log_path, logger
+from src.scrapers import Craigslist
+from src import db
 from datetime import datetime
 import os
 import traceback

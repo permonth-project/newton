@@ -2,9 +2,9 @@ import os
 from tqdm import tqdm
 from datetime import datetime
 import pandas as pd
-from scraper.utils import module_path, starttime, starttime_str
-from scraper import utils
-from scraper.src.set_logging import log_path, logger
+from utils import module_path, starttime, starttime_str
+import utils
+from src.set_logging import log_path, logger
 from pprint import pprint
 import traceback
 import time

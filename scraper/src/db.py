@@ -1,7 +1,7 @@
 import mysql.connector
-from scraper import utils
-from scraper.utils import module_path
-from scraper.src.set_logging import log_path, logger
+import utils
+from utils import module_path
+from src.set_logging import log_path, logger
 from sqlalchemy import create_engine
 import difflib
 import os
