@@ -2,14 +2,14 @@ import React from 'react'
 
 const Cards3 = () => {
   return (
-    <div className='max-w-[1240px] group mx-auto  px-2 sm:px-16 bg-[#93123f] text-white mt-16 py-8 sm:py-32 sm:rounded-xl'>
+    <div className='max-w-[1240px] group mx-auto  px-2 sm:px-16 bg-[#93123f] text-white mt-16 py-8 sm:py-32 sm:rounded-xl' id='process'>
         <div className='sm:grid md:grid-cols-3 gap-16'>
             <div className='text-center sm:text-left sm:col-span-1'>
             <h1 className='text-4xl mb-8 font-bold uppercase'>Not sure what good price is?</h1>
-            <p>
+            <p className='text-sm'>
             If you're unsure of what a fair price is for a used iPhone, Newton Index can help guide you with our pricing tool. When you're looking to purchase a used iPhone or sell your own, our pricing tool can help you navigate the market and find the best deal.
             </p>
-            <button className="bg-white text-Black flex w-[160px] items-center py-2 my-8 rounded-md mx-auto sm:mx-none">
+            <button className="bg-white text-Black flex w-[160px] items-center py-2 my-8 rounded-md mx-auto sm:mx-0">
               <span className="mx-auto font-medium text-black text-center">
                 PROCESS BOOK
               </span>

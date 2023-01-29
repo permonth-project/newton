@@ -11,20 +11,20 @@ const Cards = () => {
         <div className=' mx-auto md:grid grid-cols-3 gap-8 my-4 group-hover text-center'>
             <div className='my-8'>
             <h1 className='text-3xl sm:text-2xl text-[#93123f] font-bold'>Real-time Price Data</h1>
-            <p className="md:text-lg font-medium text-black/60 mt-8">
+            <p className="font-medium text-black/60 mt-8 text-base">
             offers live pricing information for used iPhones, allowing users to stay up-to-date on current market values
           </p>
             </div>
             
             <div className='my-8'>
             <h1 className='text-3xl sm:text-2xl text-[#93123f] font-bold'>Find the Reasonable Price</h1>
-            <p className="md:text-lg font-medium text-black/60 mt-8">
+            <p className="font-medium text-black/60 mt-8  text-base">
             Discover fair market value with our pricing tool, which provides users with accurate prices to help users make informed decisions
           </p>
             </div>
             <div className='my-8'>
             <h1 className='text-3xl sm:text-2xl text-[#93123f] font-bold '>Interactive Price Chart</h1>
-            <p className="md:text-lg font-medium text-black/60 mt-8">
+            <p className="font-medium text-black/60 mt-8  text-base">
             Explore trends with our interactive chart feature, which allows users to visualize historical pricing data
           </p>
             </div>

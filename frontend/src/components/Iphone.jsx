@@ -2,7 +2,7 @@ import React from 'react'
 
 const Iphone = () => {
   return (
-    <div className='w-full mb-8 sm:px-4 px-2 sm:py-0 py-8'>
+    <div className='w-full mb-8 sm:px-4 px-2 sm:py-0 py-8' id='faq'>
         <div className='max-w-[1240px] flex flex-col mx-auto bg-black/0 sm:px-16 sm:py-16 border-none rounded-xl '>
         <p className="my-2 text-white font-bold text-sm px-4 py-2 rounded-full w-[240px] text-center bg-[#93123f]/80">
             Do you have any questions?
