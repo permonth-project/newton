@@ -23,6 +23,7 @@ def get_craigslist():
     ## Scrape data from Craigslist
     df_data = pd.DataFrame()
     for model in current_iphone_models:
+        gc.collect()
         if os.path.exists(csv_fpath):
             pd.read_csv(csv_fpath)
         logger.info(f"Scraping model: {model}")
@@ -37,13 +38,15 @@ def get_craigslist():
             continue
         df_data = pd.concat([df_data, df])
         time.sleep(15)
-
+        if df_data.shape[0] == 0: continue
         ## Save scraped data directly to the database
-        db.insert_listings(df_data)
+        try:
+            db.insert_listings(df_data)
+        except:
+            traceback.print_exc()
 
         ## Save scraped data in CSV
         # df_data.to_csv(csv_fpath)
-        gc.collect()
     logger.info('=' * 65)
     logger.info('Scraper ended at {0}'.format(datetime.fromtimestamp(starttime).strftime('%Y%m%d %H:%M:%S')))
     logger.info('=' * 65)
