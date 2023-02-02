@@ -1,5 +1,5 @@
 import React from "react";
-import Heroimage from "../assets/hero-image-2.png";
+import Heroimage from "../../assets/hero-image-2.png";
 import Typed from "react-typed";
 
 const Hero = () => {
@@ -45,7 +45,7 @@ const Hero = () => {
 
       <div className=" col-span-3 flex flex-col justify-center  items-center">
 
-          <img className="w-fill lg:w-[90%] p-2 sm:p-0 mx-auto" src={Heroimage} alt="/" />
+        <img className="w-fill lg:w-[90%] p-2 sm:p-0 mx-auto" src={Heroimage} alt="/" />
 
       </div>
     </div>

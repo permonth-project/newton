@@ -1,28 +1,30 @@
 
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 
-import Cards2 from './components/Cards2';
-import Cards3 from './components/Cards3';
-import Iphone from './components/Iphone';
-import CTA from './components/CTA';
+import Homepage from './pages/Homepage';
+import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
 
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Hero />
-      <Cards2/>
-      <Cards3/>
+    <Router>
 
-      <CTA/>
-      <Iphone />
-      <Footer/>
-      
-    </div>
+      <div className="App">
+        <ScrollToTop />
+        {/* <Navigate /> */}
+        <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route path="/compare" element={<Dashboard />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+
+
   );
 }
 
