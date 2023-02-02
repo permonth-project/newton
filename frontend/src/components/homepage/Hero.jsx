@@ -4,7 +4,7 @@ import Typed from "react-typed";
 
 const Hero = () => {
   return (
-    <div className="max-w-[1240px] py-16 sm:mt-12 md:mx-auto grid lg:grid-cols-5 bg-[#fff2f1] sm:rounded-xl">
+    <div className="max-w-[1240px] py-16 sm:mt-8 md:mx-auto grid lg:grid-cols-5 bg-[#fff2f1] sm:rounded-xl">
       {/* TEXT*/}
       <div className="mb-8 col-span-2   w-full  text-black max-h-[600px] flex flex-cols-2 justify-center">
         <div className="max-w-[1240px] px-2 sm:px-16 w-full mx-auto flex flex-col justify-center">
@@ -34,11 +34,9 @@ const Hero = () => {
                 BROWSE
               </span>
             </button>
-            <button className="border-[#93123f] bg-red/20 border-2  text-[#93123f] flex w-[160px] items-center py-2 rounded-md">
-              <span className="mx-auto font-medium text-button text-center">
-                BUTTON
-              </span>
-            </button>
+
+
+            
           </div>
         </div>
       </div>

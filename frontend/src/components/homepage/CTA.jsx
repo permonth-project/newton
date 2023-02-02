@@ -19,8 +19,8 @@ const CTA = () => {
             <button className='bg-[#93123f] text-white rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-2'>Notify Me</button>
   
             </div>
-            <p>We care about the protectino of your data. Read our <span className='text-[#93123f] underline'> Privacy Policy.</span></p>
-            <p className='text-[#93123f] '>Sign up to our newsletter and stay up to date</p>
+            <p className='text-sm'>We care about the protectino of your data. Read our <span className='text-[#93123f] underline'> Privacy Policy.</span></p>
+            <p className='text-[#93123f] text-sm'>Sign up to our newsletter and stay up to date</p>
         </div>
 
         </div>

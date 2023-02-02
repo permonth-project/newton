@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 
 function App() {
   return (
+<<<<<<< Updated upstream
     <Router>
 
       <div className="App">
@@ -25,6 +26,19 @@ function App() {
     </Router>
 
 
+=======
+    <div className="bg-white">
+      <Navbar />
+      <Hero />
+      <Cards2/>
+      <Cards3/>
+
+      <CTA/>
+      <Iphone />
+      <Footer/>
+      
+    </div>
+>>>>>>> Stashed changes
   );
 }
 
