@@ -11,7 +11,7 @@ const GraphBar = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                `http://newton.permonth.tech/get-avg/?product_id=466`,
+                `http://newton.permonth.tech/api/get-avg/?product_id=466`,
             );
 
             setData(result.data);
