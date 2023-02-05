@@ -2,14 +2,16 @@
 import React from 'react';
 import {RiNumber1} from 'react-icons/ri';
 
-const CTA = () => {
+const Roadmap = () => {
   return (
     <div className='w-full text-black' id='roadmap'>
-    <div className='max-w-[1240px] mx-auto  px-2 sm:px-16 py-8 sm:py-16 sm:my-8 sm:rounded-xl bg-red-50 '>
+    <div className='max-w-[1240px] mx-auto  px-2 sm:px-16 py-8 sm:py-16 sm:my-8 sm:rounded-xl  '>
       <div className='grid md:grid-cols-4 gap-8'>
         <div className='col-span-2'>
             <h1 className='sm:text-4xl text-5xl font-bold py-2 text-[#93123f]'>Future Roadmap</h1>
             <h1 className='sm:text-4xl text-3xl font-bold py-8'>We have tones of <span className="bg-[#93123f] text-white px-2 italic">features</span> to be updated in the future</h1>
+
+            
         </div>
 
         
@@ -57,4 +59,4 @@ const CTA = () => {
   )
 }
 
-export default CTA
+export default Roadmap;

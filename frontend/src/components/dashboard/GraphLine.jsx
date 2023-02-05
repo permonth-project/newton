@@ -37,7 +37,7 @@ const GraphBar = () => {
     };
 
     return (
-        <div className='max-w-[1240px] mx-auto px-16 bg-black/0 mt-16 py-8 rounded-xl'>
+        <div className='max-w-[1240px] mx-auto px-16 mt-16 py-8'>
             <HighchartsReact highcharts={Highcharts} options={options} />
         </div >
     )

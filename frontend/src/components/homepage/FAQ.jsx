@@ -1,7 +1,7 @@
 import React from 'react'
 import {BsFillPatchQuestionFill} from 'react-icons/bs';
 
-const Iphone = () => {
+const FAQ = () => {
   return (
     <div className='w-full mb-8 sm:px-4 px-2 sm:py-0 py-8' id='faq'>
         <div className='max-w-[1240px] flex flex-col mx-auto bg-black/0 sm:px-16 sm:py-16 border-none rounded-xl '>
@@ -24,14 +24,17 @@ const Iphone = () => {
         </div>
         <div className='grid  md:grid-cols-2 gap-8 mt-4'>
             <div className='bg-white flex flex-col rounded-xl'>
-            <h3 className='py-2 font-medium text-lg text-gray-800  flex items-center'><BsFillPatchQuestionFill size={20} className='text-gray-500 mr-2'/>Is&nbsp;<span className='text-[#93123f]'>Newton Index</span>&nbsp;legal to collect and use data?</h3>
-            <p className='py-2 text-gray-500 text-sm'>As a general rule, we all know it is not a good idea to scrape content from a website, yet some companies persist in this behaviour contrary to law and best practice.</p>
+            <h3 className='py-2 font-medium text-lg text-gray-800  flex items-center'><BsFillPatchQuestionFill size={20} className='text-gray-500 mr-2'/>How can I&nbsp;<span className='text-[#93123f]'>utilize</span>&nbsp;Newton Index?</h3>
+            <p className='py-2 text-gray-500 text-sm'>With the pricing tool, users can get a fair and unbiased estimate of the market value of a used iPhone, taking into consideration factors.</p>
             </div>
 
 
             <div className='bg-white flex flex-col rounded-xl'>
-            <h3 className='py-2 font-medium text-lg text-gray-800  flex items-center'><BsFillPatchQuestionFill size={20} className='text-gray-500 mr-2'/>How&nbsp;<span className='text-[#93123f]'>often</span>&nbsp; does it get updated?</h3>
-            <p className='py-2 text-gray-500 text-sm'>We will collect and publish the data into our Index every Friday evening. Because, Craigslist, website itself blocks the API when we scrap the data too often.</p>
+            <h3 className='py-2 font-medium text-lg text-gray-800  flex items-center'><BsFillPatchQuestionFill size={20} className='text-gray-500 mr-2'/>
+            Would there be more products added to the list??            </h3>
+            <p className='py-2 text-gray-500 text-sm'>
+              Other products like iPads, Macbooks and more will be added in the future. Sign the newsletter for further update!
+            </p>
             </div>
 
         </div>
@@ -40,4 +43,4 @@ const Iphone = () => {
   )
 }
 
-export default Iphone
+export default FAQ

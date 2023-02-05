@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Cards3 = () => {
+const Process = () => {
   return (
     <div className='max-w-[1240px] group mx-auto  px-2 sm:px-16 bg-[#93123f] text-white mt-16 py-8 sm:py-32 sm:rounded-xl' id='process'>
         <div className='sm:grid md:grid-cols-3 gap-16'>
@@ -25,4 +25,4 @@ const Cards3 = () => {
   )
 }
 
-export default Cards3
+export default Process

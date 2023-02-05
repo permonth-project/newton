@@ -1,20 +1,20 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/homepage/Hero';
-import Cards2 from '../components/homepage/Cards2';
-import Cards3 from '../components/homepage/Cards3';
-import Iphone from '../components/homepage/Iphone';
-import CTA from '../components/homepage/CTA';
+import Feature from '../components/homepage/Feature';
+import Process from '../components/homepage/Process';
+import FAQ from '../components/homepage/FAQ';
+import Roadmap from '../components/homepage/Roadmap';
 
 export default function Homepage() {
     return (
         <div className="App">
             <Navbar />
             <Hero />
-            <Cards2 />
-            <Cards3 />
-            <CTA />
-            <Iphone />
+            <Feature />
+            <Process />
+            <Roadmap />
+            <FAQ />
         </div>
     )
 }
