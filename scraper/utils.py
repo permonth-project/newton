@@ -79,9 +79,34 @@ def open_html(html):
 
 
 def get_soup(url):
-    response = requests.get(url)
+    from fake_headers import Headers
+
+    header = Headers(
+        browser="chrome",
+        os="win",
+        headers=True
+        ).generate()
+    response = requests.get(url, headers=header)
     soup = BeautifulSoup(response.content, 'lxml')
     return soup
+
+
+def get_soup_selenium(url):
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    CHROMEDRIVER_PATH = os.path.join(module_path, 'chromedriver')
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("start-maximized")
+    options.add_argument("disable-infobars")
+    options.add_argument("--disable-extensions")
+    driver = webdriver.Chrome(chrome_options=options, executable_path=CHROMEDRIVER_PATH)
+    driver.get(url)
+    time.sleep(5)
+    soup = BeautifulSoup(driver.page_source, 'lxml')
+
+    return soup 
 
 
 def flatten(items):

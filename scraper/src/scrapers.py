@@ -1,6 +1,8 @@
 import os
 from tqdm import tqdm
 from datetime import datetime
+import pytz
+from dateutil.relativedelta import relativedelta
 import pandas as pd
 from utils import module_path, starttime, starttime_str
 import utils
@@ -11,7 +13,7 @@ import time
 import random
 
 
-class Craigslist:
+class Craigslist_old:
     def __init__(self, query, region):
         self.BASE_URL = 'https://vancouver.craigslist.org'
         self.REGION = region
@@ -20,6 +22,10 @@ class Craigslist:
         self.QUERY_URL = f"{self.BASE_URL}/search/sss?&query={self.QUERY.replace(' ', '%20')}"
         self.result_row = None
         self.soup = utils.get_soup(self.QUERY_URL)
+        if "We've detected that JavaScript is not enabled in your browser. " \
+           "You must enable JavaScript to use craigslist." in str(self.soup):
+            self.soup = utils.get_soup_selenium(self.QUERY_URL)
+
         logger.info('Initializing Craigslist scraper')
 
     def reset_url(self, page_idx):
@@ -108,6 +114,153 @@ class Craigslist:
         range_from = self.soup.find('span', "button pagenum").find('span', 'rangeFrom').text
         range_to = self.soup.find('span', "button pagenum").find('span', 'rangeTo').text
         total_count = self.soup.find('span', "button pagenum").find('span', 'totalcount').text
+        logger.info(f"Total products: {total_count}")
+        return range_from, range_to, total_count
+
+    def get_info(self):
+        range_from, range_to, total_count = self.get_page_range()
+        info_list = []
+        for page_idx in range(int(range_from), int(total_count), int(range_to)):
+            logger.info(f"Scraping from page index: {page_idx}")
+            page_idx = page_idx - 1
+            if page_idx != 0:
+                self.reset_url(page_idx)
+            for row in tqdm(self.get_result_row()):
+                try:
+                    extract_res = self.extract_info(row)
+                except AttributeError:
+                    traceback.print_exc()
+                    continue
+                info_list.append(extract_res)
+                time.sleep(random.uniform(0.1, 1))
+        df = pd.DataFrame(info_list)
+        df.insert(0, '_region', self.REGION)
+        df.insert(0, '_product', self.QUERY)
+        df.insert(0, '_query_url', self.QUERY_URL)
+        df = df.loc[df.astype(str).drop_duplicates().index]
+        logger.info(f"Successfully completed scraping")
+        logger.info(f"Result below. Total rows: {len(df.index)}")
+        logger.info(f"\n{df}")
+        return df
+
+class Craigslist:
+    def __init__(self, query, region):
+        self.BASE_URL = 'https://vancouver.craigslist.org'
+        self.REGION = region
+        self.QUERY = query
+        self.PAGE_IDX = 0
+        self.QUERY_URL = f"{self.BASE_URL}/search/sss?&query={self.QUERY.replace(' ', '%20')}"
+        self.result_row = None
+        self.soup = utils.get_soup(self.QUERY_URL)
+        if "We've detected that JavaScript is not enabled in your browser. " \
+           "You must enable JavaScript to use craigslist." in str(self.soup):
+            self.soup = utils.get_soup_selenium(self.QUERY_URL)
+
+        logger.info('Initializing Craigslist scraper')
+
+    def reset_url(self, page_idx):
+        self.PAGE_IDX = page_idx
+        self.QUERY_URL = f"{self.BASE_URL}/search/sss?s={page_idx}&query={self.QUERY.replace(' ', '%20')}"
+        self.soup = utils.get_soup(self.QUERY_URL)
+        if "We've detected that JavaScript is not enabled in your browser. " \
+           "You must enable JavaScript to use craigslist." in str(self.soup):
+            self.soup = utils.get_soup_selenium(self.QUERY_URL)
+
+    def get_result_row(self):
+        search_res = self.soup.find('div', {"class": 'cl-results-page'})
+        self.result_row = search_res.find_all('li', {"class": 'cl-search-result'})
+        return self.result_row
+
+    def get_result_date(self, datetext):
+        if 'h ago' in datetext:
+            h = datetext.strip().split('h ago')[0]
+            result_date = datetime.now(pytz.timezone('US/PACIFIC')) - relativedelta(hours=int(h))
+            return result_date.strftime('%Y-%m-%d %H:%M')
+        return datetext
+
+    def extract_info(self, row):
+        # result_link = row.find('a', 'result-image').get('href')
+        # result_date = row.find('time', '').get('datetime')
+        # result_title = row.find('a', 'result-title').text if row.find('a', 'result-title') is not None else None
+        # result_hood = row.find('span', 'result-hood').text if row.find('span', 'result-hood') is not None else None
+        # result_link = row.find('a', 'main empty').get('href')
+
+        result_price = row.find('span', 'priceinfo').text if row.find('span', 'priceinfo') is not None else None
+        result_date = self.get_result_date(row.find('div', 'meta').text.split('·')[0])
+        result_hood = row.find('div', 'meta').text.split('·')[1]
+        result_title = row.find('a', 'titlestring').text if row.find('a', 'titlestring') is not None else None
+        result_link = row.find('a', 'titlestring').get('href') if row.find('a', 'titlestring') is not None else None
+
+        return {
+            'result_link': result_link,
+            'result_price': result_price,
+            'result_date': result_date,
+            'result_title': result_title,
+            'result_hood': result_hood,
+            **self.extract_result_link(result_link)
+            }
+
+    def extract_result_link(self, link):
+        soup = utils.get_soup(link)
+        postingdate = ''
+        post_id = ''
+        attr_dict = ''
+        map_data_accuracy = ''
+        map_data_longitude = ''
+        map_data_latitude = ''
+
+        ## get map info
+        mapbox = soup.find('div', {'id': 'map'})
+        if mapbox is not None:
+            map_data_accuracy = mapbox.get('data-accuracy')
+            map_data_longitude = mapbox.get('data-longitude')
+            map_data_latitude = mapbox.get('data-latitude')
+
+        ## get product attributes
+        attrgroup = soup.find('p', 'attrgroup')
+        if attrgroup is not None:
+            focus_text = attrgroup.text
+            focus_list = [t for t in focus_text.split('\n') if (t != '') and (t is not None)]
+            focus_dict = {attr.split(':')[0]: attr.split(':')[1] for attr in focus_list if ':' in attr}
+            attr_dict = focus_dict
+        else:
+            attr_dict = dict()
+
+        ## get main image URL
+        main_img_url = soup.find('div', 'slide first visible').img.get('src') \
+            if soup.find('div', 'slide first visible') is not None else ''
+
+        ## get posting body
+        posting_body = soup.find('section', {'id': 'postingbody'}).text.replace('QR Code Link to This Post', '').strip() \
+            if soup.find('section', {'id': 'postingbody'}) is not None else ''
+
+        ## get notices
+        user_notices = soup.find('ul', 'notices').find_all('li')
+
+        ## get postinginfos
+        for s in soup.find_all('p', 'postinginfo'):
+            if s.time:
+                postingdate = s.time.get('datetime')
+            if 'post id' in s.text:
+                post_id = s.text.split('post id: ')[1].strip()
+
+        return {
+            'map_data_accuracy': map_data_accuracy,
+            'map_data_longitude': map_data_longitude,
+            'map_data_latitude': map_data_latitude,
+            'main_img_url': main_img_url,
+            'posting_body': posting_body,
+            'user_notices': user_notices,
+            'postingdate': postingdate,
+            'post_id': post_id,
+            **attr_dict
+            }
+
+    def get_page_range(self):
+        page_number = self.soup.find('span', "cl-page-number").text
+        range_from = page_number.split(" ")[0]
+        range_to = page_number.split(" ")[2]
+        total_count = page_number.split(" ")[4]
         logger.info(f"Total products: {total_count}")
         return range_from, range_to, total_count
 
