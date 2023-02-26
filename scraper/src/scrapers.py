@@ -149,7 +149,9 @@ class Craigslist:
         self.REGION = region
         self.QUERY = query
         self.PAGE_IDX = 0
-        self.QUERY_URL = f"{self.BASE_URL}/search/sss?&query={self.QUERY.replace(' ', '%20')}"
+        self.GALLERY_IDX = 0
+        self.QUERY_URL = f"{self.BASE_URL}/search/sss?query={self.QUERY.replace(' ', '%20')}" \
+                         f"#search=1~gallery~{self.GALLERY_IDX}~0"
         self.result_row = None
         self.soup = utils.get_soup(self.QUERY_URL)
         if "We've detected that JavaScript is not enabled in your browser. " \
@@ -160,7 +162,9 @@ class Craigslist:
 
     def reset_url(self, page_idx):
         self.PAGE_IDX = page_idx
-        self.QUERY_URL = f"{self.BASE_URL}/search/sss?s={page_idx}&query={self.QUERY.replace(' ', '%20')}"
+        self.GALLERY_IDX += 1
+        self.QUERY_URL = f"{self.BASE_URL}/search/sss?query={self.QUERY.replace(' ', '%20')}" \
+                         f"#search=1~gallery~{self.GALLERY_IDX}~0"
         self.soup = utils.get_soup(self.QUERY_URL)
         if "We've detected that JavaScript is not enabled in your browser. " \
            "You must enable JavaScript to use craigslist." in str(self.soup):
