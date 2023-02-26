@@ -24,6 +24,9 @@ def get_craigslist():
     df_data = pd.DataFrame()
     for model in current_iphone_models:
         gc.collect()
+        if os.path.exists(csv_fpath):
+            pd.read_csv(csv_fpath)
+        logger.info('=' * 65)
         logger.info(f"Scraping model: {model}")
         try:
             craigslist = Craigslist(model, 'vancouver')
