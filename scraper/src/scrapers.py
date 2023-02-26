@@ -172,9 +172,21 @@ class Craigslist:
         return self.result_row
 
     def get_result_date(self, datetext):
+        time_now = datetime.now(pytz.timezone('US/PACIFIC'))
         if 'h ago' in datetext:
             h = datetext.strip().split('h ago')[0]
-            result_date = datetime.now(pytz.timezone('US/PACIFIC')) - relativedelta(hours=int(h))
+            result_date = time_now - relativedelta(hours=int(h))
+            return result_date.strftime('%Y-%m-%d %H:%M')
+        elif 'm ago' in datetext:
+            m = datetext.strip().split('m ago')[0]
+            result_date = time_now - relativedelta(minutes=int(m))
+            return result_date.strftime('%Y-%m-%d %H:%M')
+        elif '/' in datetext:
+            result_date = datetime.strptime(datetext, '%m/%d')
+            result_date = result_date.replace(
+                year=(time_now.year - 1)
+                if (time_now.month == 1 and result_date.month == 12)
+                else time_now.year)
             return result_date.strftime('%Y-%m-%d %H:%M')
         return datetext
 
