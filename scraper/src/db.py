@@ -150,8 +150,8 @@ def insert_listings(df_listings):
     # df_listings = pd.read_pickle(os.path.join(module_path, most_recent_file))
 
     df_listings = df_listings[[col for col in df_listings.columns if 'Unnamed' not in col]]
-    df_listings.loc[:, 'result_price'] = df_listings.loc[:, 'result_price'] \
-        .apply(lambda x: x.replace('$', '').replace(',', '')).astype(float)
+    df_listings.loc[:, 'result_price'] = df_listings.loc[:, 'result_price'].apply(
+        lambda x: x.replace('$', '').replace(',', '') if x is not None else x).astype(float)
     df_listings = df_listings[df_listings.apply(lambda row: 100 < row['result_price'] < 3000, axis=1)]
 
     for row in df_listings.itertuples():
