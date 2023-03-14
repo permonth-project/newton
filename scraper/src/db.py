@@ -172,6 +172,7 @@ def insert_listings(df_listings):
         """)
         res = cur.fetchall()
         if len(res) > 0:
+            logger.debug('file already exists')
             continue
 
         try:
@@ -193,7 +194,7 @@ def insert_listings(df_listings):
                      {row.map_data_latitude},
                     '{str(row.main_img_url).strip()}',
                     '{re.sub(r"'", "", row.posting_body.strip())}',
-                    '{row.user_notices}',
+                    '{str(row.user_notices).replace("'", "''").strip()}',
                     '{row.postingdate}',
                     '{str(row.condition).strip()}'
                 )
