@@ -63,8 +63,10 @@ def insert_specs_explode():
             iphone_specs.at[model.Index, 'capacity'] = [
                 c.strip() if ('GB' in c) or ('TB' in c) else f"{c} {model.capacity.strip()[-2:]}" for c in
                 model.capacity.split(',')]
-    iphone_specs_explode = iphone_specs.explode(column=['color']).explode('capacity')[
-        ['model_name', 'color', 'capacity']]
+    iphone_specs_explode = iphone_specs\
+        .explode(column=['color'])\
+        .explode('capacity')[['model_name', 'color', 'capacity']]\
+        .apply(lambda x: x.str.strip())
     iphone_specs_explode = get_current_products(iphone_specs_explode)
     iphone_specs_explode.reset_index(drop=True, inplace=True)
     iphone_specs_explode.to_sql(name='product', con=sqlalchemy_engine, if_exists='append', index=False)
