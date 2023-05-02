@@ -36,7 +36,7 @@ export default function Dashboard() {
 
     // Get model options at page load
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/get-products`).then((response) => {
+        axios.get(`http://newton.permonth.tech/api/get-products`).then((response) => {
             setAPIData(response.data);
             setModelOptions(formatOptions(Array.from(new Set(response.data.map((d) => (d.model_name)))).reverse()))
         })
@@ -120,7 +120,7 @@ export default function Dashboard() {
         if (priceData == undefined) {
             setPriceData([{ id: 0, data: [{ x: '', y: 0 }] }])
         }
-        axios.get(`http://localhost:8000/api/get-avg-multiple?product_id=${productId}`).then((response) => {
+        axios.get(`http://newton.permonth.tech/api/get-avg-multiple?product_id=${productId}`).then((response) => {
             if (!response.data) {
                 setNotFoundMSG(`${opt.modelName} ${opt.capacity ? opt.capacity : ''} ${opt.color ? opt.color : ''} is not found.`)
                 setColor(null)
