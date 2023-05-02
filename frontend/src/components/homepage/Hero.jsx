@@ -1,5 +1,5 @@
 import React from "react";
-import Heroimage from "../../assets/hero-image-2.png";
+import Heroimage from "../../assets/hero-image-3.png";
 import Typed from 'typed.js';
 
 function Typedjs(props) {
