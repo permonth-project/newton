@@ -7,9 +7,9 @@ import Homepage from './pages/Homepage';
 import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
 import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga';
-const TRACKING_ID = process.env.REACT_APP_GA_ID
-ReactGA.initialize(TRACKING_ID);
+import ReactGA from 'react-ga4';
+const MEASUREMENT_ID = process.env.REACT_APP_GA_ID
+ReactGA.initialize(MEASUREMENT_ID);
 
 
 function App() {
