@@ -1,9 +1,5 @@
 import { ResponsiveLine } from "@nivo/line";
-import { Defs, linearGradientDef } from '@nivo/core'
-import { useTheme } from "@mui/material";
-import { tokens } from "./theme";
-import axios from "axios";
-import { useState } from 'react';
+
 
 const commonProperties = {
     width: 900,

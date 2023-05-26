@@ -1,8 +1,6 @@
 // import React from 'react';
 import Navbar from '../components/Navbar';
 import LineChart from '../components/dashboard/Linechart';
-import post from '../components/dashboard/getData';
-import { Link } from 'react-router-dom';
 import { Box } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from 'react';
