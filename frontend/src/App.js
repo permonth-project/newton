@@ -1,15 +1,22 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 
 import Homepage from './pages/Homepage';
 import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
+import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
+const TRACKING_ID = process.env.REACT_APP_GA_ID
+ReactGA.initialize(TRACKING_ID);
 
 
 function App() {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <Router>
 
