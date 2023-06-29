@@ -169,6 +169,7 @@ def insert_listings(df_listings):
             AND query_id={query_id} 
             AND product_id={product_id} 
             AND result_link='{row.result_link}' 
+            AND postingdate='{row.postingdate}'
         """)
         res = cur.fetchall()
         if len(res) > 0:

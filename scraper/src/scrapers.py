@@ -22,8 +22,7 @@ class Craigslist_old:
         self.QUERY_URL = f"{self.BASE_URL}/search/sss?&query={self.QUERY.replace(' ', '%20')}"
         self.result_row = None
         self.soup = utils.get_soup(self.QUERY_URL)
-        if "We've detected that JavaScript is not enabled in your browser. " \
-           "You must enable JavaScript to use craigslist." in str(self.soup):
+        if "We've detected you are using a browser that is missing critical features." in str(self.soup):
             self.soup = utils.get_soup_selenium(self.QUERY_URL)
 
         logger.info('Initializing Craigslist scraper')
@@ -154,8 +153,7 @@ class Craigslist:
                          f"#search=1~gallery~{self.GALLERY_IDX}~0"
         self.result_row = None
         self.soup = utils.get_soup(self.QUERY_URL)
-        if "We've detected that JavaScript is not enabled in your browser. " \
-           "You must enable JavaScript to use craigslist." in str(self.soup):
+        if "We've detected you are using a browser that is missing critical features." in str(self.soup):
             self.soup = utils.get_soup_selenium(self.QUERY_URL)
 
         logger.info('Initializing Craigslist scraper')
@@ -166,8 +164,7 @@ class Craigslist:
         self.QUERY_URL = f"{self.BASE_URL}/search/sss?query={self.QUERY.replace(' ', '%20')}" \
                          f"#search=1~gallery~{self.GALLERY_IDX}~0"
         self.soup = utils.get_soup(self.QUERY_URL)
-        if "We've detected that JavaScript is not enabled in your browser. " \
-           "You must enable JavaScript to use craigslist." in str(self.soup):
+        if "We've detected you are using a browser that is missing critical features." in str(self.soup):
             self.soup = utils.get_soup_selenium(self.QUERY_URL)
 
     def get_result_row(self):
@@ -204,8 +201,8 @@ class Craigslist:
         result_price = row.find('span', 'priceinfo').text if row.find('span', 'priceinfo') is not None else None
         result_date = self.get_result_date(row.find('div', 'meta').text.split('·')[0])
         result_hood = row.find('div', 'meta').text.split('·')[1]
-        result_title = row.find('a', 'titlestring').text if row.find('a', 'titlestring') is not None else None
-        result_link = row.find('a', 'titlestring').get('href') if row.find('a', 'titlestring') is not None else None
+        result_title = row.find('a', 'posting-title').text if row.find('a', 'posting-title') is not None else None
+        result_link = row.find('a', 'posting-title').get('href') if row.find('a', 'posting-title') is not None else None
 
         return {
             'result_link': result_link,
