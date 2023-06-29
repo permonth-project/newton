@@ -1,6 +1,30 @@
 import React from "react";
-import Heroimage from "../../assets/hero-image-2.png";
-import Typed from "react-typed";
+import Heroimage from "../../assets/hero-image-3.png";
+import Typed from 'typed.js';
+
+function Typedjs(props) {
+  // Create reference to store the DOM element containing the animation
+  const el = React.useRef(null);
+
+  React.useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: props.strings,
+      typeSpeed: props.typeSpeed,
+      smartBackspace: props.smartBackspace
+    });
+
+    return () => {
+      // Destroy Typed instance during cleanup to stop animation
+      typed.destroy();
+    };
+  }, []);
+
+  return (
+    <div className={props.className}>
+      <span ref={el} />
+    </div>
+  );
+}
 
 const Hero = () => {
   return (
@@ -14,7 +38,7 @@ const Hero = () => {
           <h1 className="text-5xl font-bold mb-4">
             Discover right price for used
           </h1>
-          <Typed
+          <Typedjs
             strings={["iPhone 13 Pro", "iPhone 8 Plus", "iPhone 12 Pro Max"]}
             typeSpeed={120}
             smartBackspace={120}
@@ -34,9 +58,6 @@ const Hero = () => {
                 BROWSE
               </span>
             </button>
-
-
-            
           </div>
         </div>
       </div>
